@@ -84,7 +84,7 @@ python .\scripts\avaliar_rag.py
 python .\scripts\demo_rag_local.py --sem-llm
 ```
 
-O primeiro comando mede a **taxa de acerto entre os 3 primeiros trechos (Hit@3)** para consultas sintéticas declaradas no script e verifica a consulta fora do domínio. **Execute e registre o resultado real**; não há um valor de métrica presumido neste documento.
+O primeiro comando mede a **taxa de acerto entre os 3 primeiros trechos (Hit@3)** para consultas sintéticas declaradas no script e verifica a consulta fora do domínio. **Resultado observado:** Hit@3 de 100% (8/8 consultas sintéticas). Essa métrica não avalia a qualidade das respostas do LLM.
 
 ### 5.3 Demonstração opcional com LLM local (sem Oracle)
 
@@ -97,7 +97,7 @@ python .\scripts\demo_rag_local.py --texto "Tenho arroz e feijao em embalagens f
 
 O script usa, por padrão, `http://127.0.0.1:11434` e o modelo `llama3.2`; não envia dados de cadastro para um provedor externo. **Esta é uma demonstração autônoma do conceito**, não uma prova de que a aplicação Java com banco funcionou ponta a ponta.
 
-### 5.4 Teste integrado do endpoint Java (pendente de evidência)
+### 5.4 Teste integrado do endpoint Java (validado em 18/11/2026)
 
 A aplicação completa exige Oracle ou Azure SQL com as tabelas/carga inicial, JWT, broker de mensagens e configuração de um provedor de LLM. Configure as variáveis definidas no `application.properties`: `DB_URL`, `DB_USERNAME`, `DB_PASSWORD`, `JWT_SECRET`, `RABBITMQ_URL`, `AI_API_KEY`, `AI_BASE_URL`, `AI_COMPLETIONS_PATH`, `AI_MODEL`. **Não registre esses valores em prints ou arquivos públicos.**
 
@@ -111,7 +111,7 @@ Acesse `http://localhost:8080/swagger-ui.html`, autentique um usuário com perfi
 {"texto":"Tenho 3 pacotes de arroz e 2 de feijao para doar"}
 ```
 
-Confira itens, recomendações e aviso de revisão humana. Esse teste só deve ser marcado como concluído quando a resposta real e sua evidência estiverem disponíveis.
+Confira itens, recomendações e aviso de revisão humana. **Resultado observado em 18/11/2026:** HTTP 200 no POST /assistente/sugestao, com arroz e feijao reconhecidos pelo catálogo Oracle e orientações geradas via Ollama. Evidência: evidencias/05-endpoint-integrado.png. Limitação identificada: unidade UN em vez de PCT.
 
 ## 6. Avaliação, falhas e ética
 
@@ -125,4 +125,4 @@ Consulte [`docs/VALIDACAO-IOT.md`](docs/VALIDACAO-IOT.md), [`docs/ROTEIRO-DEMO-I
 
 ## 7. Entrega da disciplina
 
-O arquivo [`ENTREGA-IOT-FIAP.txt`](ENTREGA-IOT-FIAP.txt) contém nomes, RMs e o link **deste** repositório para envio no Portal FIAP, conforme instruções da disciplina. A documentação e os testes automatizados já estão disponíveis; as **evidências de execução real do LLM e o relatório de métricas** precisam ser anexados antes da entrega final.
+O arquivo [`ENTREGA-IOT-FIAP.txt`](ENTREGA-IOT-FIAP.txt) contém nomes, RMs e o link **deste** repositório para envio no Portal FIAP, conforme instruções da disciplina. A documentação e os testes automatizados já estão disponíveis; as cinco evidências reais estão publicadas na pasta evidencias/, incluindo a geração pelo Ollama e a integração Java.

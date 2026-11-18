@@ -24,4 +24,4 @@ git commit -m "docs(iot): documentar RAG, metricas, testes e entrega"
 git push origin main
 
 NAO INCLUA SENHAS, TOKENS OU CHAVES NOS PRINTS.
-O TESTE REAL DE IA AINDA PRECISA SER EXECUTADO E COMPROVADO.
+TESTE REAL CONCLUIDO EM 18/11/2026: JAVA + ORACLE + RAG + OLLAMA, HTTP 200.

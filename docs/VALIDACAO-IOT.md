@@ -1,4 +1,4 @@
-# Evidências e validação — IoT/IA Generativa
+﻿# Evidências e validação — IoT/IA Generativa
 
 ## 1. Resultado automatizado já confirmado
 
@@ -9,7 +9,7 @@
 - **RAG específico:** `GuiaDoacaoRagServiceTest` — 5 testes, 0 falhas, 0 erros.
 - **Observação:** um stack trace em teste de tratamento de exceções foi produzido intencionalmente; o teste terminou aprovado. Os avisos de agente dinâmico Mockito não impediram a execução.
 
-Este resumo documenta a execução relatada e revisada. **Ainda falta anexar captura de tela da execução em `evidencias/`**.
+Este resumo documenta a execução relatada e revisada. **Captura da execução anexada em evidencias/01-maven-testes.png**.
 
 ## 2. Cenários do RAG verificados por JUnit
 
@@ -27,14 +27,14 @@ Execute `python .\scripts\avaliar_rag.py`. O script lista cada cenário, IDs rec
 
 ## 4. Teste da geração real com o modelo
 
-**Pendente até execução e captura.** Escolha um dos caminhos:
+**Execuções concluídas e documentadas em 18/11/2026:**
 
 - **Prioritário para a disciplina:** executar a API Java completa com o provedor de IA e registrar a resposta real de `POST /assistente/sugestao`.
 - **Complementar, sem Oracle:** executar `python scripts/demo_rag_local.py` com Ollama. Isso demonstra recuperação + geração sobre a base, mas **não confirma integração Java/Oracle/Mobile**.
 
 Cenários sugeridos para demonstrar: (1) arroz e feijão; (2) frango congelado; (3) inclusão de sabonete como item fora do catálogo; (4) texto fora do domínio; (5) indisponibilidade do modelo. Não apresente como comprovado algo que não foi executado.
 
-## 5. Evidências a capturar e anexar
+## 5. Evidências capturadas e publicadas
 
 1. `evidencias/01-maven-testes.png` — final do `mvn clean test` com 23 testes e `BUILD SUCCESS`.
 2. `evidencias/02-rag-metricas.png` — resultado de `python scripts/avaliar_rag.py` com os casos e Hit@3.
@@ -74,4 +74,20 @@ Não inclua senhas, chave de API, token JWT ou dados pessoais de beneficiários 
 - Limitacoes: orientacoes repetitivas e algumas afirmacoes sem fundamentacao explicita.
 - Evidencia: evidencias/04-ia-resposta-real.png.
 - O teste nao comprova a integracao ponta a ponta do Java.
+
+
+
+## Validacao integrada Java + Oracle + RAG + Ollama - 18/11/2026
+
+- Endpoint: POST /assistente/sugestao.
+- Resultado: HTTP 200 OK.
+- Banco: Oracle FIAP, esquema RM566063.
+- Modelo: llama3.2 via Ollama local.
+- RAG: recuperacao lexical com base TSV de 10 trechos.
+- Alimentos reconhecidos: arroz branco (ID 1) e feijao carioca (ID 2).
+- Quantidades reconhecidas: 3 e 2.
+- Foram retornadas orientacoes de armazenamento e aviso de revisao humana.
+- Ponto de melhoria: unidade UN retornada em vez de PCT.
+- Evidencia: evidencias/05-endpoint-integrado.png.
+- Nao representa certificacao sanitaria dos alimentos.
 
