@@ -62,3 +62,16 @@ Não inclua senhas, chave de API, token JWT ou dados pessoais de beneficiários 
 - Consulta fora do dominio: nenhum trecho retornado.
 - Limite: esta avaliacao nao mede a qualidade da resposta gerada pelo LLM.
 
+
+## Teste com IA generativa local - 18/11/2026
+
+- Modelo: Ollama llama3.2.
+- Modalidade: demonstracao Python isolada com RAG lexical.
+- Consulta: armazenamento de arroz e feijao em embalagens fechadas.
+- Foram recuperados os trechos RAG-01, RAG-02 e RAG-05.
+- Primeira resposta: recomendacao inadequada de refrigeracao a 2-8 graus Celsius.
+- Apos melhoria do prompt: a temperatura incorreta nao apareceu.
+- Limitacoes: orientacoes repetitivas e algumas afirmacoes sem fundamentacao explicita.
+- Evidencia: evidencias/04-ia-resposta-real.png.
+- O teste nao comprova a integracao ponta a ponta do Java.
+
