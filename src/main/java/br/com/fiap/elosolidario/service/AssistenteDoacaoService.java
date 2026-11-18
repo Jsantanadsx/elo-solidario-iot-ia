@@ -6,6 +6,7 @@ import br.com.fiap.elosolidario.model.Alimento;
 import br.com.fiap.elosolidario.model.Conservacao;
 import br.com.fiap.elosolidario.model.Unidade;
 import br.com.fiap.elosolidario.repository.AlimentoRepository;
+import br.com.fiap.elosolidario.rag.GuiaDoacaoRagService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.stereotype.Service;
@@ -36,6 +37,13 @@ public class AssistenteDoacaoService {
 
             Catálogo (idAlimento | nome | categoria | conservação):
             {catalogo}
+
+            Orientações de referência recuperadas por RAG (resumos com fontes):
+            {contextoRag}
+
+            Gere orientações somente se apoiadas nas referências recuperadas.
+            Se não houver contexto pertinente, não invente regras de segurança alimentar.
+            Não afirme que qualquer alimento está seguro para consumo.
             """;
 
     private static final String AVISO = "Sugestão gerada por IA. Confira os itens, ajuste as quantidades e informe "
@@ -43,10 +51,14 @@ public class AssistenteDoacaoService {
 
     private final ChatClient chatClient;
     private final AlimentoRepository alimentoRepository;
+    private final GuiaDoacaoRagService guiaRag;
 
-    public AssistenteDoacaoService(ChatClient.Builder chatClientBuilder, AlimentoRepository alimentoRepository) {
+    public AssistenteDoacaoService(ChatClient.Builder chatClientBuilder,
+                                 AlimentoRepository alimentoRepository,
+                                 GuiaDoacaoRagService guiaRag) {
         this.chatClient = chatClientBuilder.build();
         this.alimentoRepository = alimentoRepository;
+        this.guiaRag = guiaRag;
     }
 
     public SugestaoResponse sugerir(String texto) {
@@ -55,10 +67,14 @@ public class AssistenteDoacaoService {
                 .map(a -> a.getId() + " | " + a.getNome() + " | " + a.getCategoria().getNome() + " | " + a.getConservacao())
                 .collect(Collectors.joining("\n"));
 
+        String contextoRag = guiaRag.contextoPara(texto, 3);
+
         RespostaIA resposta;
         try {
             resposta = chatClient.prompt()
-                    .system(sistema -> sistema.text(INSTRUCOES).param("catalogo", catalogoTexto))
+                    .system(sistema -> sistema.text(INSTRUCOES)
+                            .param("catalogo", catalogoTexto)
+                            .param("contextoRag", contextoRag))
                     .user(texto)
                     .call()
                     .entity(RespostaIA.class);

@@ -5,6 +5,7 @@ import br.com.fiap.elosolidario.model.Categoria;
 import br.com.fiap.elosolidario.model.Conservacao;
 import br.com.fiap.elosolidario.model.Unidade;
 import br.com.fiap.elosolidario.repository.AlimentoRepository;
+import br.com.fiap.elosolidario.rag.GuiaDoacaoRagService;
 import org.junit.jupiter.api.Test;
 import org.springframework.ai.chat.client.ChatClient;
 
@@ -17,7 +18,8 @@ import static org.mockito.Mockito.mock;
 class AssistenteDoacaoServiceTest {
 
     private final AssistenteDoacaoService service = new AssistenteDoacaoService(
-            mock(ChatClient.Builder.class, invocacao -> mock(ChatClient.class)), mock(AlimentoRepository.class));
+            mock(ChatClient.Builder.class, invocacao -> mock(ChatClient.class)),
+            mock(AlimentoRepository.class), new GuiaDoacaoRagService());
 
     private final List<Alimento> catalogo = List.of(
             alimento(1L, "Arroz branco", Conservacao.AMBIENTE),
