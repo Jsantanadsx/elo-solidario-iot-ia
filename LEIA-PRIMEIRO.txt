@@ -1,0 +1,27 @@
+PACOTE COMPLEMENTAR - DOCUMENTACAO DE IOT/IA ELOSOLIDARIO
+
+ESTE ZIP NAO E UM NOVO PROJETO. ELE CONTEM A DOCUMENTACAO, O .TXT DE ENTREGA,
+SCRIPTS DE AVALIACAO E DEMONSTRACAO E PASTA PARA EVIDENCIAS.
+
+DESTINO: cole/extrai o conteudo NA RAIZ de uma copia local do repositorio:
+https://github.com/Jsantanadsx/elo-solidario-iot-ia
+
+O README.md NOVO deve substituir o README.md ANTIGO SOMENTE NO REPOSITORIO IOT,
+NUNCA NO REPOSITORIO JAVA DO GABRIEL.
+
+COMANDOS POWERSHELL:
+
+cd "$env:USERPROFILE\Downloads"
+git clone https://github.com/Jsantanadsx/elo-solidario-iot-ia.git
+Expand-Archive -Path "$env:USERPROFILE\Downloads\EloSolidario_IOT_Entrega_Documentacao.zip" -DestinationPath "$env:USERPROFILE\Downloads\elo-solidario-iot-ia" -Force
+cd "$env:USERPROFILE\Downloads\elo-solidario-iot-ia"
+
+# conferindo antes de publicar:
+git status --short
+# e depois de conferir:
+git add README.md docs/ scripts/ evidencias/ ENTREGA-IOT-FIAP.txt LEIA-PRIMEIRO.txt
+git commit -m "docs(iot): documentar RAG, metricas, testes e entrega"
+git push origin main
+
+NAO INCLUA SENHAS, TOKENS OU CHAVES NOS PRINTS.
+O TESTE REAL DE IA AINDA PRECISA SER EXECUTADO E COMPROVADO.
